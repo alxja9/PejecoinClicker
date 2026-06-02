@@ -1,68 +1,90 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>AMLO Coin Clicker</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pejecoin Clicker</title>
 
-<style>
-body{
-    background:#1e1e1e;
-    color:white;
-    text-align:center;
-    font-family:Arial,sans-serif;
-}
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+        }
 
-h1{
-    margin-top:30px;
-}
+        body{
+            background:#1f1f1f;
+            color:white;
+            font-family:Arial, Helvetica, sans-serif;
+            text-align:center;
+            min-height:100vh;
+        }
 
-#cookieCount{
-    font-size:2rem;
-    margin:20px;
-}
+        h1{
+            margin-top:20px;
+            font-size:3rem;
+        }
 
-#cookie{
-    width:250px;
-    cursor:pointer;
-    transition:transform .1s;
-}
+        #coinCount{
+            font-size:2rem;
+            margin:20px 0;
+        }
 
-#cookie:hover{
-    transform:scale(1.05);
-}
+        #coin{
+            width:300px;
+            cursor:pointer;
+            user-select:none;
+            transition:transform .1s ease;
+        }
 
-#cookie:active{
-    transform:scale(.95);
-}
-</style>
+        #coin:hover{
+            transform:scale(1.05);
+        }
 
+        #coin:active{
+            transform:scale(0.95);
+        }
+
+        .info{
+            margin-top:20px;
+            color:#bdbdbd;
+        }
+    </style>
 </head>
 <body>
 
-<h1>AMLO Coin Clicker</h1>
+    <h1>🪙 Pejecoin Clicker</h1>
 
-<div id="cookieCount">0 Monedas</div>
+    <div id="coinCount">0 Pejecoins</div>
 
-<img src="assets/amlocoin.png" id="cookie" alt="AMLO Coin">
+    <img
+        src="assets/amlocoin.png"
+        id="coin"
+        alt="Pejecoin"
+    >
 
-<script>
-let coins = 0;
+    <div class="info">
+        Haz clic en la moneda para ganar Pejecoins.
+    </div>
 
-const coin = document.getElementById("cookie");
-const counter = document.getElementById("cookieCount");
+    <script>
+        let coins = 0;
 
-function updateDisplay(){
-    counter.textContent = coins + " Monedas";
-}
+        const coin = document.getElementById("coin");
+        const counter = document.getElementById("coinCount");
 
-coin.addEventListener("click", () => {
-    coins++;
-    updateDisplay();
-});
+        function updateDisplay() {
+            counter.textContent =
+                coins.toLocaleString() + " Pejecoins";
+        }
 
-updateDisplay();
-</script>
+        coin.addEventListener("click", () => {
+            coins++;
+            updateDisplay();
+        });
+
+        updateDisplay();
+    </script>
 
 </body>
 </html>
