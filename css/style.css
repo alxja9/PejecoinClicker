@@ -1,1 +1,25 @@
+body {
+    background: #1e1e1e;
+    color: white;
+    text-align: center;
+    font-family: Arial, sans-serif;
+}
 
+#cookieCount {
+    font-size: 2rem;
+    margin: 20px;
+}
+
+#cookie {
+    width: 250px;
+    cursor: pointer;
+    transition: transform 0.1s;
+}
+
+#cookie:hover {
+    transform: scale(1.05);
+}
+
+#cookie:active {
+    transform: scale(0.95);
+}
