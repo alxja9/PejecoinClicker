@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pejecoin Clicker</title>
+    <title>Peje Clicker</title>
 
     <style>
         *{
@@ -13,11 +13,11 @@
         }
 
         body{
-            background:#1f1f1f;
+            background:#1e1e1e;
             color:white;
             font-family:Arial, Helvetica, sans-serif;
             text-align:center;
-            min-height:100vh;
+            overflow-x:hidden;
         }
 
         h1{
@@ -26,45 +26,105 @@
         }
 
         #coinCount{
-            font-size:2rem;
-            margin:20px 0;
+            font-size:2.5rem;
+            margin-top:15px;
+            font-weight:bold;
+        }
+
+        #pps{
+            color:#bbbbbb;
+            margin-top:5px;
+            margin-bottom:20px;
+        }
+
+        #gameArea{
+            position:relative;
+            width:100%;
+            margin-top:20px;
         }
 
         #coin{
             width:300px;
             cursor:pointer;
             user-select:none;
-            transition:transform .1s ease;
+            transition:transform .08s;
         }
 
         #coin:hover{
-            transform:scale(1.05);
+            transform:scale(1.03);
         }
 
         #coin:active{
-            transform:scale(0.95);
+            transform:scale(.95);
         }
 
-        .info{
-            margin-top:20px;
-            color:#bdbdbd;
+        .floating-text{
+            position:absolute;
+            color:#ffd700;
+            font-size:24px;
+            font-weight:bold;
+            pointer-events:none;
+            animation:floatUp 1s forwards;
+        }
+
+        @keyframes floatUp{
+            0%{
+                opacity:1;
+                transform:translateY(0);
+            }
+
+            100%{
+                opacity:0;
+                transform:translateY(-60px);
+            }
+        }
+
+        #bottomBar{
+            margin-top:30px;
+            display:flex;
+            justify-content:center;
+            gap:15px;
+        }
+
+        button{
+            padding:12px 20px;
+            font-size:16px;
+            cursor:pointer;
+            border:none;
+            border-radius:8px;
         }
     </style>
 </head>
 <body>
 
-    <h1>🪙 Pejecoin Clicker</h1>
+    <h1>🪙 PEJE CLICKER</h1>
 
-    <div id="coinCount">0 Pejecoins</div>
+    <div id="coinCount">0 PejeCoins</div>
 
-    <img
-        src="assets/amlocoin.png"
-        id="coin"
-        alt="Pejecoin"
-    >
+    <div id="pps">
+        0 PPS
+    </div>
 
-    <div class="info">
-        Haz clic en la moneda para ganar Pejecoins.
+    <div id="gameArea">
+        <img
+            src="./assets/amlocoin.png"
+            id="coin"
+            alt="AMLCoin"
+        >
+    </div>
+
+    <div id="bottomBar">
+        <button id="shopButton">
+            🏪 Tienda
+        </button>
+
+        <button id="statsButton">
+            📊 Estadísticas
+        </button>
+
+        <button id="achievementsButton">
+            🏆 Logros
+        </button>
     </div>
 
     <script>
@@ -73,13 +133,14 @@
         const coin = document.getElementById("coin");
         const counter = document.getElementById("coinCount");
 
-        function updateDisplay() {
+        function updateDisplay(){
             counter.textContent =
-                coins.toLocaleString() + " Pejecoins";
+                coins.toLocaleString() + " PejeCoins";
         }
 
         coin.addEventListener("click", () => {
             coins++;
+
             updateDisplay();
         });
 
