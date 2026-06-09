@@ -1,15 +1,41 @@
-let coins = 0;
+const game = {
+    coins: 0,
+    totalCoins: 0,
 
-const coin = document.getElementById("cookie");
-const counter = document.getElementById("cookieCount");
+    clickPower: 1,
 
-function updateDisplay() {
-    counter.textContent = coins + " Monedas";
+    currentRole: "Vagabundo",
+
+    pps: 0,
+
+    clicks: 0
+};
+
+const coin = document.getElementById("coin");
+const counter = document.getElementById("coinCount");
+const ppsText = document.getElementById("pps");
+
+function formatNumber(num){
+    return num.toLocaleString();
+}
+
+function updateUI(){
+
+    counter.textContent =
+        formatNumber(game.coins) + " PejeCoins";
+
+    ppsText.textContent =
+        game.pps + " PPS";
 }
 
 coin.addEventListener("click", () => {
-    coins++;
-    updateDisplay();
+
+    game.coins += game.clickPower;
+    game.totalCoins += game.clickPower;
+    game.clicks++;
+
+    updateUI();
+
 });
 
-updateDisplay();
+updateUI();
