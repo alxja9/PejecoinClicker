@@ -87,5 +87,3 @@ setInterval(() => {
 }, 1000);
 
 updateUI();
-
-loadGame();
