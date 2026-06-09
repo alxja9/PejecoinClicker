@@ -5,95 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Peje Clicker</title>
 
-    <style>
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-        }
-
-        body{
-            background:#1e1e1e;
-            color:white;
-            font-family:Arial, Helvetica, sans-serif;
-            text-align:center;
-            overflow-x:hidden;
-        }
-
-        h1{
-            margin-top:20px;
-            font-size:3rem;
-        }
-
-        #coinCount{
-            font-size:2.5rem;
-            margin-top:15px;
-            font-weight:bold;
-        }
-
-        #pps{
-            color:#bbbbbb;
-            margin-top:5px;
-            margin-bottom:20px;
-        }
-
-        #gameArea{
-            position:relative;
-            width:100%;
-            margin-top:20px;
-        }
-
-        #coin{
-            width:300px;
-            cursor:pointer;
-            user-select:none;
-            transition:transform .08s;
-        }
-
-        #coin:hover{
-            transform:scale(1.03);
-        }
-
-        #coin:active{
-            transform:scale(.95);
-        }
-
-        .floating-text{
-            position:absolute;
-            color:#ffd700;
-            font-size:24px;
-            font-weight:bold;
-            pointer-events:none;
-            animation:floatUp 1s forwards;
-        }
-
-        @keyframes floatUp{
-            0%{
-                opacity:1;
-                transform:translateY(0);
-            }
-
-            100%{
-                opacity:0;
-                transform:translateY(-60px);
-            }
-        }
-
-        #bottomBar{
-            margin-top:30px;
-            display:flex;
-            justify-content:center;
-            gap:15px;
-        }
-
-        button{
-            padding:12px 20px;
-            font-size:16px;
-            cursor:pointer;
-            border:none;
-            border-radius:8px;
-        }
-    </style>
+    <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 
@@ -104,18 +16,21 @@
     <div id="pps">
         0 PPS
     </div>
+
     <div id="saveStatus">
-    ✔ Guardado automático activo
-</div>
+        ✔ Guardado automático activo
+    </div>
+
     <div id="gameArea">
         <img
-            src="./assets/amlocoin.png"
+            src="assets/amlocoin.png"
             id="coin"
             alt="AMLCoin"
         >
     </div>
 
     <div id="bottomBar">
+
         <button id="shopButton">
             🏪 Tienda
         </button>
@@ -127,29 +42,11 @@
         <button id="achievementsButton">
             🏆 Logros
         </button>
+
     </div>
 
-    <script>
-        let coins = 0;
+    <script src="js/script.js"></script>
+    <script src="js/save.js"></script>
 
-        const coin = document.getElementById("coin");
-        const counter = document.getElementById("coinCount");
-
-        function updateDisplay(){
-            counter.textContent =
-                coins.toLocaleString() + " PejeCoins";
-        }
-
-        coin.addEventListener("click", () => {
-            coins++;
-
-            updateDisplay();
-        });
-
-        updateDisplay();
-    </script>
-<script src="js/save.js"></script>
-<script src="js/script.js"></script>
-    
 </body>
 </html>
