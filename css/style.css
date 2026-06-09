@@ -23,3 +23,9 @@ body {
 #cookie:active {
     transform: scale(0.95);
 }
+#saveStatus{
+    margin-top:8px;
+    color:#8fd18f;
+    font-size:14px;
+    min-height:20px;
+}
