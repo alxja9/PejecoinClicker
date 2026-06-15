@@ -66,6 +66,12 @@ const counter = document.getElementById("coinCount");
 const ppsText = document.getElementById("pps");
 const roleText = document.getElementById("currentRole");
 
+const shopButton =
+    document.getElementById("shopButton");
+
+const shopPanel =
+    document.getElementById("shopPanel");
+
 function formatNumber(num) {
 
     if (num >= 1e12) {
@@ -95,11 +101,8 @@ function updateUI() {
     ppsText.textContent =
         formatNumber(game.pps) + " PPS";
 
-    if (roleText) {
-
-        roleText.textContent =
-            `Rol: ${game.currentRole} (${game.clickPower}x)`;
-    }
+    roleText.textContent =
+        `Rol: ${game.currentRole} (${game.clickPower}x)`;
 }
 
 function buyRole(index) {
@@ -107,7 +110,10 @@ function buyRole(index) {
     const role = roles[index];
 
     if (game.coins < role.price) {
-        return false;
+
+        alert("No tienes suficientes PejeCoins");
+
+        return;
     }
 
     game.coins -= role.price;
@@ -118,17 +124,68 @@ function buyRole(index) {
 
     updateUI();
 
+    renderRoles();
+
     if (typeof saveGame === "function") {
         saveGame();
     }
 
-    return true;
+    alert(`Ahora eres ${role.name}`);
+}
+
+function renderRoles() {
+
+    const container =
+        document.getElementById(
+            "rolesContainer"
+        );
+
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    roles.forEach((role, index) => {
+
+        const item =
+            document.createElement("div");
+
+        item.className =
+            "shop-item";
+
+        item.innerHTML = `
+            <div>
+                <strong>${role.name}</strong><br>
+                ${formatNumber(role.price)} PC
+            </div>
+
+            <button>
+                Comprar
+            </button>
+        `;
+
+        const button =
+            item.querySelector("button");
+
+        button.addEventListener(
+            "click",
+            () => {
+                buyRole(index);
+            }
+        );
+
+        container.appendChild(item);
+
+    });
+
 }
 
 coin.addEventListener("click", (event) => {
 
     game.coins += game.clickPower;
-    game.totalCoins += game.clickPower;
+
+    game.totalCoins +=
+        game.clickPower;
+
     game.clicks++;
 
     createFloatingText(event);
@@ -138,9 +195,11 @@ coin.addEventListener("click", (event) => {
 
 function createFloatingText(event) {
 
-    const text = document.createElement("div");
+    const text =
+        document.createElement("div");
 
-    text.className = "floating-text";
+    text.className =
+        "floating-text";
 
     text.textContent =
         "+" + game.clickPower;
@@ -154,9 +213,22 @@ function createFloatingText(event) {
     document.body.appendChild(text);
 
     setTimeout(() => {
+
         text.remove();
+
     }, 1000);
 }
+
+shopButton.addEventListener(
+    "click",
+    () => {
+
+        shopPanel.classList.toggle(
+            "open"
+        );
+
+    }
+);
 
 setInterval(() => {
 
@@ -166,14 +238,4 @@ setInterval(() => {
 
 updateUI();
 
-const shopButton =
-    document.getElementById("shopButton");
-
-const shopPanel =
-    document.getElementById("shopPanel");
-
-shopButton.addEventListener("click", () => {
-
-    shopPanel.classList.toggle("open");
-
-});
+renderRoles();
