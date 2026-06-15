@@ -165,3 +165,15 @@ setInterval(() => {
 }, 1000);
 
 updateUI();
+
+const shopButton =
+    document.getElementById("shopButton");
+
+const shopPanel =
+    document.getElementById("shopPanel");
+
+shopButton.addEventListener("click", () => {
+
+    shopPanel.classList.toggle("open");
+
+});
