@@ -258,3 +258,26 @@ button:active{
 
     background:#383838;
 }
+.dev-section{
+
+    margin-top:20px;
+
+    display:flex;
+
+    gap:10px;
+
+    justify-content:center;
+}
+
+.dev-section input{
+
+    width:150px;
+
+    padding:10px;
+
+    border-radius:8px;
+
+    border:none;
+
+    text-align:center;
+}
