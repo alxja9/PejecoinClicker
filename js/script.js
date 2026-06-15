@@ -13,6 +13,54 @@ const game = {
     playTime: 0
 };
 
+const roles = [
+    {
+        name: "Vagabundo",
+        multiplier: 1,
+        price: 0
+    },
+    {
+        name: "Limosnero",
+        multiplier: 2,
+        price: 1000
+    },
+    {
+        name: "Limpia vidrios",
+        multiplier: 5,
+        price: 10000
+    },
+    {
+        name: "Botarga Dr. Simi",
+        multiplier: 10,
+        price: 100000
+    },
+    {
+        name: "Cajero del Oxxo",
+        multiplier: 25,
+        price: 1000000
+    },
+    {
+        name: "Taquero",
+        multiplier: 50,
+        price: 10000000
+    },
+    {
+        name: "Empresario",
+        multiplier: 100,
+        price: 100000000
+    },
+    {
+        name: "Narco",
+        multiplier: 250,
+        price: 1000000000
+    },
+    {
+        name: "AMLO",
+        multiplier: 1000,
+        price: 10000000000
+    }
+];
+
 const coin = document.getElementById("coin");
 const counter = document.getElementById("coinCount");
 const ppsText = document.getElementById("pps");
