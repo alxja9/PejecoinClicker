@@ -281,3 +281,47 @@ button:active{
 
     text-align:center;
 }
+#devPanel{
+
+    border-left:3px solid #ff9800;
+}
+
+#devButton{
+
+    background:#ff9800;
+}
+
+#devButton:hover{
+
+    background:#ffad33;
+}
+
+.shop-item button[disabled]{
+
+    background:#666;
+
+    cursor:default;
+
+    opacity:.8;
+}
+
+.shop-item button[disabled]:hover{
+
+    transform:none;
+
+    box-shadow:none;
+}
+
+.dev-section input{
+
+    background:#333;
+
+    color:white;
+
+    font-size:16px;
+}
+
+.dev-section input::placeholder{
+
+    color:#999;
+}
