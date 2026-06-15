@@ -318,5 +318,91 @@ setInterval(() => {
 }, 1000);
 
 updateUI();
+const devButton =
+    document.getElementById(
+        "devButton"
+    );
+
+const devPanel =
+    document.getElementById(
+        "devPanel"
+    );
+
+devButton.addEventListener(
+    "click",
+    () => {
+
+        devPanel.classList.toggle(
+            "open"
+        );
+
+    }
+);
+
+document
+.getElementById(
+    "addCoinsButton"
+)
+.addEventListener(
+    "click",
+    () => {
+
+        const amount =
+            Number(
+                document.getElementById(
+                    "addCoinsInput"
+                ).value
+            );
+
+        if (!amount) return;
+
+        game.coins += amount;
+
+        updateUI();
+
+        if (
+            typeof saveGame ===
+            "function"
+        ) {
+            saveGame();
+        }
+    }
+);
+
+document
+.getElementById(
+    "removeCoinsButton"
+)
+.addEventListener(
+    "click",
+    () => {
+
+        const amount =
+            Number(
+                document.getElementById(
+                    "removeCoinsInput"
+                ).value
+            );
+
+        if (!amount) return;
+
+        game.coins -= amount;
+
+        if (game.coins < 0) {
+
+            game.coins = 0;
+
+        }
+
+        updateUI();
+
+        if (
+            typeof saveGame ===
+            "function"
+        ) {
+            saveGame();
+        }
+    }
+);
 
 renderRoles();
