@@ -1,15 +1,10 @@
 const game = {
     coins: 0,
     totalCoins: 0,
-
     clickPower: 1,
-
     currentRole: "Vagabundo",
-
     pps: 0,
-
     clicks: 0,
-
     playTime: 0
 };
 
@@ -66,11 +61,8 @@ const counter = document.getElementById("coinCount");
 const ppsText = document.getElementById("pps");
 const roleText = document.getElementById("currentRole");
 
-const shopButton =
-    document.getElementById("shopButton");
-
-const shopPanel =
-    document.getElementById("shopPanel");
+const shopButton = document.getElementById("shopButton");
+const shopPanel = document.getElementById("shopPanel");
 
 function formatNumber(num) {
 
@@ -101,11 +93,8 @@ function updateUI() {
     ppsText.textContent =
         formatNumber(game.pps) + " PPS";
 
-    if (roleText) {
-
-        roleText.textContent =
-            `Rol: ${game.currentRole} (${game.clickPower}x)`;
-    }
+    roleText.textContent =
+        `Rol: ${game.currentRole} (${game.clickPower}x)`;
 }
 
 function buyRole(index) {
@@ -114,35 +103,70 @@ function buyRole(index) {
 
     if (game.coins < role.price) {
 
-        return false;
+        alert("No tienes suficientes PejeCoins");
 
+        return;
     }
 
     game.coins -= role.price;
 
-    game.currentRole =
-        role.name;
+    game.currentRole = role.name;
 
-    game.clickPower =
-        role.multiplier;
+    game.clickPower = role.multiplier;
 
     updateUI();
 
+    renderRoles();
+
     if (typeof saveGame === "function") {
-
         saveGame();
-
     }
 
-    return true;
+    alert(`Ahora eres ${role.name}`);
+}
+
+function renderRoles() {
+
+    const container =
+        document.getElementById("rolesContainer");
+
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    roles.forEach((role, index) => {
+
+        const item =
+            document.createElement("div");
+
+        item.className = "shop-item";
+
+        item.innerHTML = `
+            <div>
+                <strong>${role.name}</strong><br>
+                ${formatNumber(role.price)} PC
+            </div>
+
+            <button>
+                Comprar
+            </button>
+        `;
+
+        item.querySelector("button")
+            .addEventListener("click", () => {
+                buyRole(index);
+            });
+
+        container.appendChild(item);
+
+    });
 }
 
 coin.addEventListener("click", (event) => {
 
     game.coins += game.clickPower;
 
-    game.totalCoins +=
-        game.clickPower;
+    game.totalCoins += game.clickPower;
 
     game.clicks++;
 
@@ -177,82 +201,11 @@ function createFloatingText(event) {
     }, 1000);
 }
 
-shopButton.addEventListener(
-    "click",
-    () => {
+shopButton.addEventListener("click", () => {
 
-        shopPanel.classList.toggle(
-            "open"
-        );
+    shopPanel.classList.toggle("open");
 
-    }
-);
-
-function renderRoles() {
-
-    const container =
-        document.getElementById(
-            "rolesContainer"
-        );
-
-    if (!container) return;
-
-    container.innerHTML = "";
-
-    roles.forEach((role, index) => {
-
-        const item =
-            document.createElement("div");
-
-        item.className =
-            "shop-item";
-
-        item.innerHTML = `
-            <div>
-                <strong>${role.name}</strong><br>
-                ${formatNumber(role.price)} PC
-            </div>
-
-            <button>
-                Comprar
-            </button>
-        `;
-
-        const button =
-            item.querySelector("button");
-
-        button.addEventListener(
-            "click",
-            () => {
-
-                const purchased =
-                    buyRole(index);
-
-                if (purchased) {
-
-                    renderRoles();
-
-                    alert(
-                        "Ahora eres " +
-                        role.name
-                    );
-
-                } else {
-
-                    alert(
-                        "No tienes suficientes PejeCoins"
-                    );
-
-                }
-
-            }
-        );
-
-        container.appendChild(item);
-
-    });
-
-}
+});
 
 setInterval(() => {
 
