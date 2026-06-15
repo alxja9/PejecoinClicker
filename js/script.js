@@ -1,10 +1,17 @@
 const game = {
     coins: 0,
     totalCoins: 0,
+
     clickPower: 1,
+
     currentRole: "Vagabundo",
+
+    ownedRoles: ["Vagabundo"],
+
     pps: 0,
+
     clicks: 0,
+
     playTime: 0
 };
 
@@ -61,8 +68,11 @@ const counter = document.getElementById("coinCount");
 const ppsText = document.getElementById("pps");
 const roleText = document.getElementById("currentRole");
 
-const shopButton = document.getElementById("shopButton");
-const shopPanel = document.getElementById("shopPanel");
+const shopButton =
+    document.getElementById("shopButton");
+
+const shopPanel =
+    document.getElementById("shopPanel");
 
 function formatNumber(num) {
 
@@ -101,34 +111,53 @@ function buyRole(index) {
 
     const role = roles[index];
 
+    if (
+        game.ownedRoles.includes(
+            role.name
+        )
+    ) {
+        return;
+    }
+
     if (game.coins < role.price) {
 
-        alert("No tienes suficientes PejeCoins");
+        alert(
+            "No tienes suficientes PejeCoins"
+        );
 
         return;
     }
 
     game.coins -= role.price;
 
-    game.currentRole = role.name;
+    game.currentRole =
+        role.name;
 
-    game.clickPower = role.multiplier;
+    game.clickPower =
+        role.multiplier;
+
+    game.ownedRoles.push(
+        role.name
+    );
 
     updateUI();
 
     renderRoles();
 
-    if (typeof saveGame === "function") {
+    if (
+        typeof saveGame ===
+        "function"
+    ) {
         saveGame();
     }
-
-    alert(`Ahora eres ${role.name}`);
 }
 
 function renderRoles() {
 
     const container =
-        document.getElementById("rolesContainer");
+        document.getElementById(
+            "rolesContainer"
+        );
 
     if (!container) return;
 
@@ -137,62 +166,132 @@ function renderRoles() {
     roles.forEach((role, index) => {
 
         const item =
-            document.createElement("div");
+            document.createElement(
+                "div"
+            );
 
-        item.className = "shop-item";
+        item.className =
+            "shop-item";
+
+        let buttonHTML = "";
+
+        if (
+            role.name ===
+            game.currentRole
+        ) {
+
+            buttonHTML =
+                `
+                <button disabled>
+                    ACTIVO
+                </button>
+                `;
+
+        } else if (
+            game.ownedRoles.includes(
+                role.name
+            )
+        ) {
+
+            buttonHTML =
+                `
+                <button disabled>
+                    COMPRADO
+                </button>
+                `;
+
+        } else {
+
+            buttonHTML =
+                `
+                <button class="buy-btn">
+                    Comprar
+                </button>
+                `;
+        }
 
         item.innerHTML = `
             <div>
-                <strong>${role.name}</strong><br>
-                ${formatNumber(role.price)} PC
+                <strong>
+                    ${role.name}
+                </strong>
+                <br>
+                ${formatNumber(role.price)}
+                PC
             </div>
 
-            <button>
-                Comprar
-            </button>
+            ${buttonHTML}
         `;
 
-        item.querySelector("button")
-            .addEventListener("click", () => {
-                buyRole(index);
-            });
+        const button =
+            item.querySelector(
+                ".buy-btn"
+            );
 
-        container.appendChild(item);
+        if (button) {
+
+            button.addEventListener(
+                "click",
+                () => {
+                    buyRole(index);
+                }
+            );
+        }
+
+        container.appendChild(
+            item
+        );
 
     });
 }
 
-coin.addEventListener("click", (event) => {
+coin.addEventListener(
+    "click",
+    (event) => {
 
-    game.coins += game.clickPower;
+        game.coins +=
+            game.clickPower;
 
-    game.totalCoins += game.clickPower;
+        game.totalCoins +=
+            game.clickPower;
 
-    game.clicks++;
+        game.clicks++;
 
-    createFloatingText(event);
+        createFloatingText(
+            event
+        );
 
-    updateUI();
-});
+        updateUI();
+    }
+);
 
-function createFloatingText(event) {
+function createFloatingText(
+    event
+) {
 
     const text =
-        document.createElement("div");
+        document.createElement(
+            "div"
+        );
 
     text.className =
         "floating-text";
 
     text.textContent =
-        "+" + game.clickPower;
+        "+" +
+        game.clickPower;
 
     text.style.left =
-        event.pageX + "px";
+        event.pageX +
+        "px";
 
     text.style.top =
-        event.pageY + "px";
+        event.pageY +
+        "px";
 
-    document.body.appendChild(text);
+    document.body.appendChild(
+        text
+    );
 
     setTimeout(() => {
 
@@ -201,11 +300,16 @@ function createFloatingText(event) {
     }, 1000);
 }
 
-shopButton.addEventListener("click", () => {
+shopButton.addEventListener(
+    "click",
+    () => {
 
-    shopPanel.classList.toggle("open");
+        shopPanel.classList.toggle(
+            "open"
+        );
 
-});
+    }
+);
 
 setInterval(() => {
 
