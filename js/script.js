@@ -101,8 +101,11 @@ function updateUI() {
     ppsText.textContent =
         formatNumber(game.pps) + " PPS";
 
-    roleText.textContent =
-        `Rol: ${game.currentRole} (${game.clickPower}x)`;
+    if (roleText) {
+
+        roleText.textContent =
+            `Rol: ${game.currentRole} (${game.clickPower}x)`;
+    }
 }
 
 function buyRole(index) {
@@ -111,72 +114,27 @@ function buyRole(index) {
 
     if (game.coins < role.price) {
 
-        alert("No tienes suficientes PejeCoins");
+        return false;
 
-        return;
     }
 
     game.coins -= role.price;
 
-    game.currentRole = role.name;
+    game.currentRole =
+        role.name;
 
-    game.clickPower = role.multiplier;
+    game.clickPower =
+        role.multiplier;
 
     updateUI();
 
-    renderRoles();
-
     if (typeof saveGame === "function") {
+
         saveGame();
+
     }
 
-    alert(`Ahora eres ${role.name}`);
-}
-
-function renderRoles() {
-
-    const container =
-        document.getElementById(
-            "rolesContainer"
-        );
-
-    if (!container) return;
-
-    container.innerHTML = "";
-
-    roles.forEach((role, index) => {
-
-        const item =
-            document.createElement("div");
-
-        item.className =
-            "shop-item";
-
-        item.innerHTML = `
-            <div>
-                <strong>${role.name}</strong><br>
-                ${formatNumber(role.price)} PC
-            </div>
-
-            <button>
-                Comprar
-            </button>
-        `;
-
-        const button =
-            item.querySelector("button");
-
-        button.addEventListener(
-            "click",
-            () => {
-                buyRole(index);
-            }
-        );
-
-        container.appendChild(item);
-
-    });
-
+    return true;
 }
 
 coin.addEventListener("click", (event) => {
@@ -229,6 +187,72 @@ shopButton.addEventListener(
 
     }
 );
+
+function renderRoles() {
+
+    const container =
+        document.getElementById(
+            "rolesContainer"
+        );
+
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    roles.forEach((role, index) => {
+
+        const item =
+            document.createElement("div");
+
+        item.className =
+            "shop-item";
+
+        item.innerHTML = `
+            <div>
+                <strong>${role.name}</strong><br>
+                ${formatNumber(role.price)} PC
+            </div>
+
+            <button>
+                Comprar
+            </button>
+        `;
+
+        const button =
+            item.querySelector("button");
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                const purchased =
+                    buyRole(index);
+
+                if (purchased) {
+
+                    renderRoles();
+
+                    alert(
+                        "Ahora eres " +
+                        role.name
+                    );
+
+                } else {
+
+                    alert(
+                        "No tienes suficientes PejeCoins"
+                    );
+
+                }
+
+            }
+        );
+
+        container.appendChild(item);
+
+    });
+
+}
 
 setInterval(() => {
 
