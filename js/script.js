@@ -64,6 +64,7 @@ const roles = [
 const coin = document.getElementById("coin");
 const counter = document.getElementById("coinCount");
 const ppsText = document.getElementById("pps");
+const roleText = document.getElementById("currentRole");
 
 function formatNumber(num) {
 
@@ -93,6 +94,35 @@ function updateUI() {
 
     ppsText.textContent =
         formatNumber(game.pps) + " PPS";
+
+    if (roleText) {
+
+        roleText.textContent =
+            `Rol: ${game.currentRole} (${game.clickPower}x)`;
+    }
+}
+
+function buyRole(index) {
+
+    const role = roles[index];
+
+    if (game.coins < role.price) {
+        return false;
+    }
+
+    game.coins -= role.price;
+
+    game.currentRole = role.name;
+
+    game.clickPower = role.multiplier;
+
+    updateUI();
+
+    if (typeof saveGame === "function") {
+        saveGame();
+    }
+
+    return true;
 }
 
 coin.addEventListener("click", (event) => {
