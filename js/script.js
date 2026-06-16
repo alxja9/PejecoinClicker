@@ -127,6 +127,15 @@ const shopButton =
 const shopPanel =
     document.getElementById("shopPanel");
 
+const statsButton =
+    document.getElementById(
+        "statsButton"
+    );
+
+const statsPanel =
+    document.getElementById(
+        "statsPanel"
+    );
 function formatNumber(num) {
 
     if (num >= 1e12) {
@@ -363,6 +372,18 @@ shopButton.addEventListener(
 
     }
 );
+statsButton.addEventListener(
+    "click",
+    () => {
+
+        renderStats();
+
+        statsPanel.classList.toggle(
+            "open"
+        );
+
+    }
+);
 
 setInterval(() => {
 
@@ -459,6 +480,95 @@ document
 );
 
 renderRoles();
+
+function renderStats() {
+
+    const container =
+        document.getElementById(
+            "statsContainer"
+        );
+
+    if (!container) return;
+
+    const hours =
+        Math.floor(
+            game.playTime / 3600
+        );
+
+    const minutes =
+        Math.floor(
+            (game.playTime % 3600) / 60
+        );
+
+    const seconds =
+        game.playTime % 60;
+
+    container.innerHTML = `
+
+        <div class="shop-item">
+            <strong>
+                PejeCoins actuales
+            </strong>
+            <span>
+                ${formatNumber(game.coins)}
+            </span>
+        </div>
+
+        <div class="shop-item">
+            <strong>
+                PejeCoins totales
+            </strong>
+            <span>
+                ${formatNumber(
+                    game.totalCoins
+                )}
+            </span>
+        </div>
+
+        <div class="shop-item">
+            <strong>
+                Clicks realizados
+            </strong>
+            <span>
+                ${formatNumber(
+                    game.clicks
+                )}
+            </span>
+        </div>
+
+        <div class="shop-item">
+            <strong>
+                PPS actual
+            </strong>
+            <span>
+                ${formatNumber(
+                    game.pps
+                )}
+            </span>
+        </div>
+
+        <div class="shop-item">
+            <strong>
+                Rol actual
+            </strong>
+            <span>
+                ${game.currentRole}
+            </span>
+        </div>
+
+        <div class="shop-item">
+            <strong>
+                Tiempo jugado
+            </strong>
+            <span>
+                ${hours}h
+                ${minutes}m
+                ${seconds}s
+            </span>
+        </div>
+
+    `;
+}
 
 function calculatePPS() {
 
