@@ -592,16 +592,16 @@ function renderGenerators() {
 
 setInterval(() => {
 
-    game.coins +=
-        game.pps;
+    game.coins += game.pps;
 
-    game.totalCoins +=
-        game.pps;
+    game.totalCoins += game.pps;
 
     updateUI();
 
 }, 1000);
 
 calculatePPS();
+
+renderRoles();
 
 renderGenerators();
