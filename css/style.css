@@ -325,3 +325,11 @@ button:active{
 
     color:#999;
 }
+#statsContainer{
+
+    display:flex;
+
+    flex-direction:column;
+
+    gap:10px;
+}
