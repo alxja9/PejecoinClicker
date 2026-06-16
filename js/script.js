@@ -73,6 +73,7 @@ const roles = [
         price: 10000000000
     }
 ];
+
 const generators = [
     {
         name: "Refinería",
@@ -458,3 +459,149 @@ document
 );
 
 renderRoles();
+
+function calculatePPS() {
+
+    let total = 0;
+
+    generators.forEach(generator => {
+
+        total +=
+            generator.pps *
+            game.ownedGenerators[
+                generator.name
+            ];
+
+    });
+
+    game.pps = total;
+}
+
+function buyGenerator(index) {
+
+    const generator =
+        generators[index];
+
+    const owned =
+        game.ownedGenerators[
+            generator.name
+        ];
+
+    const price =
+        Math.floor(
+            generator.basePrice *
+            Math.pow(1.15, owned)
+        );
+
+    if (
+        game.coins < price
+    ) {
+        return;
+    }
+
+    game.coins -= price;
+
+    game.ownedGenerators[
+        generator.name
+    ]++;
+
+    calculatePPS();
+
+    updateUI();
+
+    renderGenerators();
+
+    saveGame();
+}
+
+function renderGenerators() {
+
+    const container =
+        document.getElementById(
+            "generatorsContainer"
+        );
+
+    if (!container) return;
+
+    container.innerHTML = "";
+
+    generators.forEach(
+        (generator, index) => {
+
+            const owned =
+                game.ownedGenerators[
+                    generator.name
+                ];
+
+            const price =
+                Math.floor(
+                    generator.basePrice *
+                    Math.pow(
+                        1.15,
+                        owned
+                    )
+                );
+
+            const item =
+                document.createElement(
+                    "div"
+                );
+
+            item.className =
+                "shop-item";
+
+            item.innerHTML = `
+                <div>
+                    <strong>
+                        ${generator.name}
+                    </strong>
+                    <br>
+                    ${owned} comprados
+                    <br>
+                    +${formatNumber(
+                        generator.pps
+                    )} PPS
+                </div>
+
+                <button>
+                    ${formatNumber(
+                        price
+                    )} PC
+                </button>
+            `;
+
+            item
+            .querySelector(
+                "button"
+            )
+            .addEventListener(
+                "click",
+                () => {
+                    buyGenerator(
+                        index
+                    );
+                }
+            );
+
+            container.appendChild(
+                item
+            );
+        }
+    );
+}
+
+setInterval(() => {
+
+    game.coins +=
+        game.pps;
+
+    game.totalCoins +=
+        game.pps;
+
+    updateUI();
+
+}, 1000);
+
+calculatePPS();
+
+renderGenerators();
