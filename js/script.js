@@ -8,6 +8,17 @@ const game = {
 
     ownedRoles: ["Vagabundo"],
 
+    ownedGenerators: {
+        "Refinería": 0,
+        "Tren Maya": 0,
+        "Aeropuerto": 0,
+        "Becas Bienestar": 0,
+        "Pemex": 0,
+        "Palacio Nacional": 0,
+        "Cámara de Diputados": 0,
+        "Presidencia": 0
+    },
+
     pps: 0,
 
     clicks: 0,
@@ -62,7 +73,48 @@ const roles = [
         price: 10000000000
     }
 ];
-
+const generators = [
+    {
+        name: "Refinería",
+        pps: 1,
+        basePrice: 25
+    },
+    {
+        name: "Tren Maya",
+        pps: 5,
+        basePrice: 150
+    },
+    {
+        name: "Aeropuerto",
+        pps: 25,
+        basePrice: 1000
+    },
+    {
+        name: "Becas Bienestar",
+        pps: 100,
+        basePrice: 7500
+    },
+    {
+        name: "Pemex",
+        pps: 500,
+        basePrice: 50000
+    },
+    {
+        name: "Palacio Nacional",
+        pps: 2500,
+        basePrice: 500000
+    },
+    {
+        name: "Cámara de Diputados",
+        pps: 10000,
+        basePrice: 5000000
+    },
+    {
+        name: "Presidencia",
+        pps: 50000,
+        basePrice: 50000000
+    }
+];
 const coin = document.getElementById("coin");
 const counter = document.getElementById("coinCount");
 const ppsText = document.getElementById("pps");
